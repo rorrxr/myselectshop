@@ -17,7 +17,7 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
-src/main/java/com/sparta/myselectshop/naver/service
+src/main/java/com/sparta/myselectshop/naver/service/*.java
 
 ### IntelliJ IDEA ###
 .idea

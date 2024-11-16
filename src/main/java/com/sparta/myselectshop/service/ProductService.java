@@ -69,6 +69,7 @@ public class ProductService {
         }
 
         return productList.map(ProductResponseDto::new);
+
     }
 
 //    public List<ProductResponseDto> getProducts(User user) {

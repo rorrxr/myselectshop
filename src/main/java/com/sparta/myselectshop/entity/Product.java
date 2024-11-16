@@ -41,10 +41,12 @@ public class Product extends Timestamped {
         this.lprice = requestDto.getLprice();
     }
 
+    // 관심상품 희망가 수정
     public void update(ProductMypriceRequestDto requestDto) {
         this.myprice = requestDto.getMyprice();
     }
 
+    // scheduler update
     public void updateByItemDto(ItemDto itemDto) {
         this.lprice = itemDto.getLprice();
     }

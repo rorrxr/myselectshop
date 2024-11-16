@@ -48,6 +48,7 @@ public class ProductService {
         return new ProductResponseDto(product);
     }
 
+    @Transactional(readOnly = true)
     public Page<ProductResponseDto> getProducts(User user,
                                                 int page, int size, String sortBy, boolean isAsc) {
         // 페이징 처리
@@ -58,13 +59,12 @@ public class ProductService {
         // 관리자인지 확인하기
         UserRoleEnum userRoleEnum = user.getRole();
 
-        Page<Product> productList = null;
+        Page<Product> productList;
 
         if (userRoleEnum == UserRoleEnum.USER) {
             productList = productRepository.findAllByUser(user, pageable);
         }
-
-        if(userRoleEnum == UserRoleEnum.ADMIN) {
+        else{
             productList =  productRepository.findAll(pageable);
         }
 

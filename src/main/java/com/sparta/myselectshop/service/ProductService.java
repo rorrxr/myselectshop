@@ -5,9 +5,14 @@ import com.sparta.myselectshop.dto.ProductRequestDto;
 import com.sparta.myselectshop.dto.ProductResponseDto;
 import com.sparta.myselectshop.entity.Product;
 import com.sparta.myselectshop.entity.User;
+import com.sparta.myselectshop.entity.UserRoleEnum;
 import com.sparta.myselectshop.naver.dto.ItemDto;
 import com.sparta.myselectshop.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,16 +48,39 @@ public class ProductService {
         return new ProductResponseDto(product);
     }
 
-    public List<ProductResponseDto> getProducts(User user) {
-        // 유저별로 product 조회
-        List<Product> productList = productRepository.findALlByUser(user);
-        List<ProductResponseDto> responseDtoList = new ArrayList<>();
+    public Page<ProductResponseDto> getProducts(User user,
+                                                int page, int size, String sortBy, boolean isAsc) {
+        // 페이징 처리
+        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
 
-        for (Product product : productList) {
-            responseDtoList.add(new ProductResponseDto(product));
+        // 관리자인지 확인하기
+        UserRoleEnum userRoleEnum = user.getRole();
+
+        Page<Product> productList = null;
+
+        if (userRoleEnum == UserRoleEnum.USER) {
+            productList = productRepository.findAllByUser(user, pageable);
         }
-        return responseDtoList;
+
+        if(userRoleEnum == UserRoleEnum.ADMIN) {
+            productList =  productRepository.findAll(pageable);
+        }
+
+        return productList.map(ProductResponseDto::new);
     }
+
+//    public List<ProductResponseDto> getProducts(User user) {
+//        // 유저별로 product 조회
+//        List<Product> productList = productRepository.findALlByUser(user);
+//        List<ProductResponseDto> responseDtoList = new ArrayList<>();
+//
+//        for (Product product : productList) {
+//            responseDtoList.add(new ProductResponseDto(product));
+//        }
+//        return responseDtoList;
+//    }
 
     @Transactional
     public void updateBySearch(Long id, ItemDto itemDto) {
@@ -62,14 +90,14 @@ public class ProductService {
         product.updateByItemDto(itemDto);
     }
 
-    public List<ProductResponseDto> getAllProducts() {
-        List<Product> productList = productRepository.findAll();
-        List<ProductResponseDto> responseDtoList = new ArrayList<>();
-
-        for (Product product : productList) {
-            responseDtoList.add(new ProductResponseDto(product));
-        }
-        return responseDtoList;
-    }
+//    public List<ProductResponseDto> getAllProducts() {
+//        List<Product> productList = productRepository.findAll();
+//        List<ProductResponseDto> responseDtoList = new ArrayList<>();
+//
+//        for (Product product : productList) {
+//            responseDtoList.add(new ProductResponseDto(product));
+//        }
+//        return responseDtoList;
+//    }
 
 }

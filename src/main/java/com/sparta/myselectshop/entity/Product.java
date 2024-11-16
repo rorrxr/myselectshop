@@ -15,8 +15,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Product extends Timestamped {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -43,6 +41,8 @@ public class Product extends Timestamped {
     private User user;
 
     public Product(ProductRequestDto requestDto, User user) {
+        // this.user = requestDto.getUser();
+        this.user = user;
         this.title = requestDto.getTitle();
         this.image = requestDto.getImage();
         this.link = requestDto.getLink();

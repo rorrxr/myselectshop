@@ -1,5 +1,6 @@
 package com.sparta.myselectshop.dto;
 
+import com.sparta.myselectshop.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductRequestDto {
+
     // 관심상품명
     private String title;
     // 관심상품 썸네일 image URL
@@ -16,4 +18,5 @@ public class ProductRequestDto {
     private String link;
     // 관심상품의 최저가
     private int lprice;
+
 }

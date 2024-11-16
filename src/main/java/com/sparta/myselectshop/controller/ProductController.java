@@ -3,9 +3,11 @@ package com.sparta.myselectshop.controller;
 import com.sparta.myselectshop.dto.ProductMypriceRequestDto;
 import com.sparta.myselectshop.dto.ProductRequestDto;
 import com.sparta.myselectshop.dto.ProductResponseDto;
+import com.sparta.myselectshop.entity.User;
 import com.sparta.myselectshop.security.UserDetailsImpl;
 import com.sparta.myselectshop.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import java.util.List;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @RestController
+@Slf4j
 public class ProductController {
 
     @Autowired
@@ -23,6 +26,12 @@ public class ProductController {
     // 관심 상품 등록하기
     @PostMapping("/products")
     public ProductResponseDto createProduct(@RequestBody ProductRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
+        User user = userDetails.getUser();
+        System.out.println(user.getId());
+        System.out.println(user.getUsername());
+        System.out.println(user.getEmail());
+
         // 응답 보내기
         return productService.createProduct(requestDto, userDetails.getUser());
     }

@@ -8,7 +8,7 @@ http://13.125.3.184/
 
 # 프로젝트 환경
 
-- SpringBoot, Thymeleaf, JPA, MySQL, HTML, JavaScript, DBeaver
+- SpringBoot, Thymeleaf, JPA, MySQL, HTML, JavaScript, DBeaver, AWS RDS, AWS EC2
 
 # 프로젝트 기능
 

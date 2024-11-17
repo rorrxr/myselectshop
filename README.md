@@ -4,8 +4,15 @@
 
 # 프로젝트 환경
 
-- SpringBoot, Thymeleaf, JPA, MySQL, HTML, JavaScript, MariaDB
+- SpringBoot, Thymeleaf, JPA, MySQL, HTML, JavaScript, DBeaver
 
 # 프로젝트 기능
 
-차후 작성 후 정리
+- 관심 상품 등록 및 조회 (네이버 검색 API 적용)
+- Spring Security를 사용한 회원가입 및 로그인
+- 회원별 상품 조회 구현
+- Pageable을 사용한 상품 페이징 및 정렬
+- 상품 폴더 설계 
+- 폴더 생성 및 조회 구현 
+- 관심 상품에 폴더 추가 구현 
+- 폴더별 관심상품 조회 구현 

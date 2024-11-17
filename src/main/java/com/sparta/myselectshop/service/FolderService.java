@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -18,19 +19,21 @@ public class FolderService {
 
     // 로그인한 회원에 폴더들 등록
     public void addFolders(List<String> folderNames, User user) {
-//        System.out.println("폴더 이름 목록: " + folderNames);
-//
-//        if (folderNames == null || folderNames.isEmpty()) {
-//            throw new IllegalArgumentException("폴더 이름 목록이 비어 있습니다.");
-//        }
+        System.out.println("폴더 이름 목록: " + folderNames);
+
+
 
         // 입력으로 들어온 폴더 이름을 기준으로, 회원이 이미 생성한 폴더들을 조회합니다.
         List<Folder> existFolderList = folderRepository.findAllByUserAndNameIn(user, folderNames);
-//        System.out.println("기존 폴더 목록: " + existFolderList.size()); // 기존 폴더의 개수 확인
+        if (folderNames == null || folderNames.isEmpty()) {
+            throw new IllegalArgumentException("폴더 이름 목록이 비어 있습니다.");
+        }
+        System.out.println("기존 폴더 목록: " + existFolderList.size()); // 기존 폴더의 개수 확인
 
         List<Folder> folderList = new ArrayList<>();
+        List<String> distinctFolderNames = new ArrayList<>(new HashSet<>(folderNames));
 
-        for (String folderName : folderNames) {
+        for (String folderName : distinctFolderNames) {
             // 이미 생성한 폴더가 아닌 경우만 폴더 생성
             if (!isExistFolderName(folderName, existFolderList)) {
                 Folder folder = new Folder(folderName, user);

@@ -13,5 +13,6 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     //  회원별 상품을 조회하는 메서드 추가
     Page<Product> findAllByUser(User user, Pageable pageable);
+    Page<Product> findAllByUserAndProductFolderList_FolderId(User user, Long folderId, Pageable pageable);
 
 }

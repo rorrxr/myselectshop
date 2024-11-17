@@ -2,6 +2,10 @@
 
 - 스프링 숙련 주차를 수강하면서 만든 프로젝트입니다
 
+# 프로젝트 URL
+
+http://13.125.3.184/
+
 # 프로젝트 환경
 
 - SpringBoot, Thymeleaf, JPA, MySQL, HTML, JavaScript, DBeaver
